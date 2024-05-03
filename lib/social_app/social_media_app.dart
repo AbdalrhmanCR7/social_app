@@ -1,5 +1,6 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:social_app/modules/componests/componests.dart';
 
 class loginscreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class _loginscreenState extends State<loginscreen> {
         leading: const Icon(
           Icons.menu,
         ),
-        title: Text('ABDALRHMAN'),
+        title: Text(' SPU Social Medil'),
         centerTitle: true,
         actions: [
           IconButton(
@@ -42,18 +43,20 @@ class _loginscreenState extends State<loginscreen> {
           ),
         ],
       ),
-      body:Padding(
-        padding: EdgeInsets.all(20.0),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
         child: Form(
           key: formkey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Login",
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
+              const Center(
+                child: Text(
+                  "Login",
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               SizedBox(height: 20),
@@ -92,7 +95,7 @@ class _loginscreenState extends State<loginscreen> {
                     return null;
                   }),
               SizedBox(height: 20),
-// هاد تابع مستعا من صفحة عامل فيها زر ال لوك ان
+              // هاد تابع مستعا من صفحة عامل فيها زر ال لوك ان
               // ريسبل كومبوننت
 
               defaultButton(
@@ -106,15 +109,15 @@ class _loginscreenState extends State<loginscreen> {
                   }
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Don`t have an account?'),
+                  const Text('Don`t have an account?'),
                   TextButton(
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       'now',
                     ),
                   ),
