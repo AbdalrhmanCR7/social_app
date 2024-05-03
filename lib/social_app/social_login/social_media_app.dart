@@ -7,13 +7,11 @@ class loginscreen extends StatefulWidget {
   @override
   State<loginscreen> createState() => _loginscreenState();
 }
-
 class _loginscreenState extends State<loginscreen> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var formkey = GlobalKey<FormState>();
   bool ispassword = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +32,7 @@ class _loginscreenState extends State<loginscreen> {
             },
           ),
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.search,
             ),
             onPressed: () {
