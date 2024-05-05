@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:social_app/core/error/failure.dart';
 
@@ -17,6 +18,7 @@ class RegisterRepositoryImpl extends RegisterRepository {
       await _registerDataSource.register(registerRequest);
       return const Right(null);
     } catch (e) {
+      debugPrint("error: $e");
       return Left(Failure());
     }
   }
