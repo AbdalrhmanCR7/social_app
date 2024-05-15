@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/features/register/presentation/pages/register_page.dart';
 
+import '../../features/feeds/presentation/pages/feeds_screen.dart';
 import '../../features/login/presentation/pages/login_page.dart';
 import 'routes.dart';
 
@@ -16,6 +17,9 @@ class AppRouter {
         );
       case Routes.registerPage:
         return MaterialPageRoute(builder: (_)=>const RegisterPage()
+        );
+      case Routes.feedsScreen:
+        return MaterialPageRoute(builder: (_)=>FeedsScreen()
         );
 
       default:

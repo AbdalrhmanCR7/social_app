@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import '../../../../core/routing/routes.dart';
 import '../../../../core/widgets/auth_text_form_field.dart';
 import '../../data/models/register_request.dart';
 import '../../data/repositories/register_repository_impl.dart';
@@ -89,7 +90,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       const SizedBox(height: 10),
                       ElevatedButton(
-                        onPressed: () {
+
+                        onPressed: () async {
+                          try {
                           final RegisterRequest registerRequest =
                               RegisterRequest(
                             firstName: firstNameController.text,
@@ -97,8 +100,13 @@ class _RegisterPageState extends State<RegisterPage> {
                             email: emailController.text,
                             password: passwordController.text,
                           );
-                          registerRepository.register(registerRequest);
-                        },
+
+                         await registerRepository.register(registerRequest);
+                         Navigator.of(context).pushNamed(Routes.feedsScreen);
+                        }catch(e){
+
+                          }
+    },
                         style: ButtonStyle(
                           backgroundColor:
                               const MaterialStatePropertyAll(Color(0xFFe4d199)),
@@ -111,7 +119,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           ),
                         ),
+
                         child: const Text(
+
                           'Sign up',
                           style: TextStyle(
                             color: Color(0xFF362d0e),
