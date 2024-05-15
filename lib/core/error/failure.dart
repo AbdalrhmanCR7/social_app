@@ -5,6 +5,6 @@ class Failure extends Equatable {
   const Failure({ this.errorMessage="something wrong"});
 
   @override
-  List<Object?> get props =>[errorMessage];
+  List<Object?> get props =>[errorMessage,];
 
 }

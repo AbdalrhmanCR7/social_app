@@ -97,7 +97,8 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).pushNamed(Routes.registerPage);
+                                Navigator.of(context)
+                                    .pushNamed(Routes.registerPage);
                               },
                               child: Container(
                                 margin:
@@ -119,7 +120,10 @@ class _LoginPageState extends State<LoginPage> {
                           final LoginRequest loginRequest = LoginRequest(
                               email: emailController.text,
                               password: passwordController.text);
-                          loginRepository.login(loginRequest);
+                          loginRepository.login(loginRequest).whenComplete(() {
+                            debugPrint('Login complete');
+                            Navigator.of(context).pushNamed(Routes.homePage);
+                          });
                         },
                         style: ButtonStyle(
                           backgroundColor:

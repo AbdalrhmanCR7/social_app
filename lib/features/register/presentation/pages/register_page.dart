@@ -90,23 +90,25 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       const SizedBox(height: 10),
                       ElevatedButton(
-
-                        onPressed: () async {
+                        onPressed: () {
                           try {
-                          final RegisterRequest registerRequest =
-                              RegisterRequest(
-                            firstName: firstNameController.text,
-                            lastName: lastNameController.text,
-                            email: emailController.text,
-                            password: passwordController.text,
-                          );
-
-                         await registerRepository.register(registerRequest);
-                         Navigator.of(context).pushNamed(Routes.feedsScreen);
-                        }catch(e){
-
+                            final RegisterRequest registerRequest =
+                                RegisterRequest(
+                              firstName: firstNameController.text,
+                              lastName: lastNameController.text,
+                              email: emailController.text,
+                              password: passwordController.text,
+                            );
+                            registerRepository
+                                .register(registerRequest)
+                                .whenComplete(() {
+                              debugPrint('Register complete');
+                              Navigator.of(context).pushNamed(Routes.homePage);
+                            });
+                          } catch (e) {
+                            debugPrint('Error: $e');
                           }
-    },
+                        },
                         style: ButtonStyle(
                           backgroundColor:
                               const MaterialStatePropertyAll(Color(0xFFe4d199)),
@@ -119,9 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           ),
                         ),
-
                         child: const Text(
-
                           'Sign up',
                           style: TextStyle(
                             color: Color(0xFF362d0e),

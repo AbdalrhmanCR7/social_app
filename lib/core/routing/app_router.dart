@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/features/register/presentation/pages/register_page.dart';
 
-import '../../features/feeds/presentation/pages/feeds_screen.dart';
+import '../../features/home/presentation/pages/home_screen.dart';
 import '../../features/login/presentation/pages/login_page.dart';
 import 'routes.dart';
 
@@ -12,15 +12,11 @@ class AppRouter {
 
     switch (settings.name) {
       case Routes.loginPage:
-        return MaterialPageRoute(
-          builder: (_) => const LoginPage()
-        );
+        return MaterialPageRoute(builder: (_) => const LoginPage());
       case Routes.registerPage:
-        return MaterialPageRoute(builder: (_)=>const RegisterPage()
-        );
-      case Routes.feedsScreen:
-        return MaterialPageRoute(builder: (_)=>FeedsScreen()
-        );
+        return MaterialPageRoute(builder: (_) => const RegisterPage());
+      case Routes.homePage:
+        return MaterialPageRoute(builder: (_) => const HomePage());
 
       default:
         return MaterialPageRoute(
