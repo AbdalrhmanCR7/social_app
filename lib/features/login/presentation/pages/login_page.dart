@@ -115,12 +115,16 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {
-                          final LoginRequest loginRequest = LoginRequest(
-                              email: emailController.text,
-                              password: passwordController.text);
-                          loginRepository.login(loginRequest);
+                        onPressed: ()async {
+                          try {
+                            final LoginRequest loginRequest = LoginRequest(
+                                email: emailController.text,
+                                password: passwordController.text);
+                            await loginRepository.login(loginRequest);
+                            Navigator.of(context).pushNamed(Routes.feedsScreen);
+                          }catch(e){}
                         },
+
                         style: ButtonStyle(
                           backgroundColor:
                               const MaterialStatePropertyAll(Color(0xFFe4d199)),
