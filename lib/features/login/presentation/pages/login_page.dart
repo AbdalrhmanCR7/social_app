@@ -125,6 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.of(context).pushNamed(Routes.homePage);
                           });
                         },
+
                         style: ButtonStyle(
                           backgroundColor:
                               const MaterialStatePropertyAll(Color(0xFFe4d199)),
