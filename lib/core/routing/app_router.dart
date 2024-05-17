@@ -7,11 +7,19 @@ import '../../features/settings/presentation/pages/settings_screen.dart';
 import 'routes.dart';
 
 class AppRouter {
+  final bool isLoggedIn;
+
+  AppRouter({required this.isLoggedIn});
+
   Route generateRoute(RouteSettings settings) {
     //this arguments to be passed in any screen like this ( arguments as ClassName )
     final arguments = settings.arguments;
 
     switch (settings.name) {
+      case Routes.initialPage:
+        return MaterialPageRoute(
+          builder: (_) => isLoggedIn ? const HomePage() : const LoginPage(),
+        );
       case Routes.loginPage:
         return MaterialPageRoute(builder: (_) => const LoginPage());
       case Routes.registerPage:
@@ -20,7 +28,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const HomePage());
 
       case Routes.settingsScreen:
-        return MaterialPageRoute(builder: (_) => const SettingsScreen ());
+        return MaterialPageRoute(builder: (_) => const SettingsScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

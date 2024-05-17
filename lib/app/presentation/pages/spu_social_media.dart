@@ -5,7 +5,6 @@ import '../../../core/routing/routes.dart';
 
 class SPUSocialMedia extends StatelessWidget {
   final AppRouter appRouter;
-
   const SPUSocialMedia({
     super.key,
     required this.appRouter,
@@ -16,7 +15,7 @@ class SPUSocialMedia extends StatelessWidget {
     return MaterialApp(
       title: 'SPU Social Media',
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.loginPage,
+      initialRoute: Routes.initialPage,
       onGenerateRoute: appRouter.generateRoute,
     );
   }

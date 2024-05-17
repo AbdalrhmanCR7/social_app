@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 
-class AuthTextFormField extends StatefulWidget {
-  final String hintText;
-  final IconData? suffixIcon;
+class AuthTextFormField extends StatelessWidget {
+  final String labelText;
   final bool obscureText;
   final TextEditingController controller;
+  final Function(String? value) validator;
+  final IconData? prefixIcon;
+  final IconData? suffixIcon;
+  final Function()? suffixIconAction;
 
   const AuthTextFormField({
     super.key,
-    required this.hintText,
-    this.obscureText = false,
-     this.suffixIcon,
     required this.controller,
+    required this.validator,
+    required this.labelText,
+    this.obscureText = false,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.suffixIconAction,
   });
 
-  @override
-  State<AuthTextFormField> createState() => _AuthTextFormFieldState();
-}
-
-class _AuthTextFormFieldState extends State<AuthTextFormField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,15 +28,25 @@ class _AuthTextFormFieldState extends State<AuthTextFormField> {
         vertical: 10,
       ),
       child: TextFormField(
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        controller: widget.controller,
-        obscureText: widget.obscureText,
+        controller: controller,
+        obscureText: obscureText,
         decoration: InputDecoration(
-          labelText: widget.hintText,
-          labelStyle: const TextStyle(
-            color: Colors.black
-          ),
-          suffixIcon: Icon(widget.suffixIcon),
+          labelText: labelText,
+          labelStyle: const TextStyle(color: Colors.black),
+          prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
+          suffixIcon: suffixIcon != null
+              ? IconButton(
+                  onPressed: () {
+                    if (suffixIconAction != null) {
+                      suffixIconAction!();
+                    }
+                  },
+                  icon: Icon(
+                    suffixIcon,
+                    color: obscureText ? Colors.grey : const Color(0xFFd5c48e),
+                  ),
+                )
+              : null,
           fillColor: Colors.white,
           filled: true,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -48,7 +59,7 @@ class _AuthTextFormFieldState extends State<AuthTextFormField> {
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(
-                color: Colors.black,
+              color: Colors.black,
             ),
           ),
           errorBorder: OutlineInputBorder(
@@ -59,9 +70,7 @@ class _AuthTextFormFieldState extends State<AuthTextFormField> {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(
-                color: Colors.black
-            ),
+            borderSide: const BorderSide(color: Colors.black),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -70,6 +79,12 @@ class _AuthTextFormFieldState extends State<AuthTextFormField> {
             ),
           ),
         ),
+        onTapOutside: (_) {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        validator: (String? v) {
+          return validator(v);
+        },
       ),
     );
   }
