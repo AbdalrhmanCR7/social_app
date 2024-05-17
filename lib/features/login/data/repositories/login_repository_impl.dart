@@ -11,7 +11,7 @@ import '../data_sources/login_remote_data_source.dart';
 
 class LoginRepositoryImpl extends LoginRepository {
   final LoginRemoteDataSource _loginRemoteDataSource = LoginRemoteDataSource();
-  final AppLocalDataSource _appLocalDataSource = AppLocalDataSourceImpl();
+  final AppLocalDataSource _appLocalDataSource = AppLocalDataSource();
 
   @override
   Future<Either<Failure, void>> login(LoginRequest loginRequest) async {

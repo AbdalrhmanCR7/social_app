@@ -11,7 +11,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  final AppLocalDataSource appLocalDataSource = AppLocalDataSourceImpl();
+  final AppLocalDataSource appLocalDataSource = AppLocalDataSource();
   final bool isLoggedIn = await appLocalDataSource.isLoggedIn;
   runApp(
     SPUSocialMedia(

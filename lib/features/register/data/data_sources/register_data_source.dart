@@ -8,11 +8,21 @@ class RegisterDataSource {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
-  Future<void> register(RegisterRequest registerRequest) async {
-    await _firebaseAuth.createUserWithEmailAndPassword(
-        email: registerRequest.email, password: registerRequest.password);
+  Future<UserModel> register(RegisterRequest registerRequest) async {
+    final UserCredential userCredential =
+        await _firebaseAuth.createUserWithEmailAndPassword(
+      email: registerRequest.email,
+      password: registerRequest.password,
+    );
     final UserModel userModel = UserModel(
-        fullName: registerRequest.fullName, email: registerRequest.email);
-    await _firebaseFirestore.collection('Users').add(userModel.toMap());
+      id: userCredential.user!.uid,
+      fullName: registerRequest.fullName,
+      email: registerRequest.email,
+    );
+    await _firebaseFirestore
+        .collection('Users')
+        .doc(userModel.id)
+        .set(userModel.toMap());
+    return userModel;
   }
 }
