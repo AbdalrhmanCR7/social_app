@@ -12,4 +12,12 @@ class SettingsRemoteDataSource {
     final UserModel user = UserModel.fromMap(userMap);
     return user;
   }
+
+  Future<void> updateUserName(String userId, String newName) async {
+    await _firestore.collection('Users').doc(userId).update(
+      {
+        'fullName': newName,
+      },
+    );
+  }
 }

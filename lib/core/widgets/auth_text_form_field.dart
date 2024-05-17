@@ -8,24 +8,27 @@ class AuthTextFormField extends StatelessWidget {
   final IconData? prefixIcon;
   final IconData? suffixIcon;
   final Function()? suffixIconAction;
+  final double horizontalPadding;
+  final double verticalPadding;
 
-  const AuthTextFormField({
-    super.key,
-    required this.controller,
-    required this.validator,
-    required this.labelText,
-    this.obscureText = false,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.suffixIconAction,
-  });
+  const AuthTextFormField(
+      {super.key,
+      required this.controller,
+      required this.validator,
+      required this.labelText,
+      this.obscureText = false,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.suffixIconAction,
+      this.horizontalPadding = 10,
+      this.verticalPadding = 10});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 10,
+      padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding,
+        vertical: verticalPadding,
       ),
       child: TextFormField(
         controller: controller,

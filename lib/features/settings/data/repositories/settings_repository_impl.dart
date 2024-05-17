@@ -24,4 +24,16 @@ class SettingsRepositoryImpl extends SettingsRepository {
       throw Exception(e);
     }
   }
+
+  @override
+  Future<Either<Failure, void>> updateUserName(String newName) async {
+    try {
+      final String userId = await _appLocalDataSource.userId;
+      await _settingsRemoteDataSource.updateUserName(userId, newName);
+      return const Right(null);
+    } catch (e) {
+      debugPrint('Update Username Error: $e');
+      throw Exception(e);
+    }
+  }
 }

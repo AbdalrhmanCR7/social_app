@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../register/data/models/user_model.dart';
 import '../../data/repositories/settings_repository_impl.dart';
 import '../../domain/repositories/settings_repository.dart';
+import '../widgets/edit_username_dialog.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -17,6 +18,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   void initState() {
+    getUserName();
+    super.initState();
+  }
+
+  void getUserName() {
     _settingsRepository.getUser().then((value) {
       value.fold(
         (failure) {},
@@ -29,7 +35,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         },
       );
     });
-    super.initState();
   }
 
   @override
@@ -89,6 +94,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 Text(
                   userModel!.fullName,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
                 ),
                 const SizedBox(
                   height: 5.0,
@@ -184,7 +193,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       width: 10.0,
                     ),
                     OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (_) => EditUsernameDialog(
+                            whenComplete: () {
+                              getUserName();
+                            },
+                            onStart: () {
+                              Navigator.pop(context);
+                              setState(() {
+                                userModel = null;
+                              });
+                            },
+                          ),
+                        );
+                      },
                       child: const Icon(
                         Icons.edit,
                         size: 16.0,
