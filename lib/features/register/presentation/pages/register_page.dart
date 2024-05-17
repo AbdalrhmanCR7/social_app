@@ -26,118 +26,116 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(
-      children: [
-        Image.asset(
-          'assets/images/background_image.jpg',
-          fit: BoxFit.fill,
-          height: double.infinity,
-          width: double.infinity,
-        ),
-        Center(
-          child: ClipRRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.65,
-                width: MediaQuery.of(context).size.width * 0.9,
-                padding: const EdgeInsets.only(top: 40),
-                decoration: BoxDecoration(
-                  color: const Color.fromRGBO(71, 71, 71, 0.5),
-                  borderRadius: BorderRadius.circular(20),
-                  border: const Border(
-                    top: BorderSide(color: Color(0xFFd5c48e), width: 5),
-                  ),
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        child: Text(
-                          'Create new account',
-                          style: TextStyle(
-                            color: Color(0xFFd5c48e),
-                            fontSize: 20,
-                          ),
-                        ),
+          children: [
+            Image.asset(
+              'assets/images/back.jpg',
+              fit: BoxFit.fill,
+              height: double.infinity,
+              width: double.infinity,
+            ),
+            Center(
+              child: ClipRRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.65,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    padding: const EdgeInsets.only(top: 40),
+                    decoration: BoxDecoration(
+                      color: const Color.fromRGBO(71, 71, 71, 0.5),
+                      borderRadius: BorderRadius.circular(20),
+                      border: const Border(
+                        top: BorderSide(color: Color(0xFFd5c48e), width: 5),
                       ),
-                      Row(
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
                         children: [
-                          Flexible(
-                            child: AuthTextFormField(
-                              controller: firstNameController,
-                              hintText: 'First Name',
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                            child: Text(
+                              'Create new account',
+                              style: TextStyle(
+                                color: Color(0xFFd5c48e),
+                                fontSize: 25,
+                              ),
                             ),
                           ),
-                          Flexible(
-                            child: AuthTextFormField(
-                              controller: lastNameController,
-                              hintText: 'Last name',
-                            ),
+                          Row(
+                            children: [
+                              Flexible(
+                                child: AuthTextFormField(
+                                  controller: firstNameController,
+                                  suffixIcon: Icons.person,
+                                  hintText: 'Full Name',
+
+
+                                ),
+                              ),
+
+                            ],
                           ),
+                          AuthTextFormField(
+                            controller: emailController,
+                            suffixIcon: Icons.email_outlined,
+                            hintText: 'Email Address',
+                          ),
+                          AuthTextFormField(
+                            controller: passwordController,
+                            obscureText: true,
+                            suffixIcon: Icons.password,
+                            hintText: 'Password',
+                          ),
+                          const SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () {
+                              try {
+                                final RegisterRequest registerRequest =
+                                RegisterRequest(
+                                  firstName: firstNameController.text,
+                                  lastName: lastNameController.text,
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                                registerRepository
+                                    .register(registerRequest)
+                                    .whenComplete(() {
+                                  debugPrint('Register complete');
+                                  Navigator.of(context).pushNamed(Routes.homePage);
+                                });
+                              } catch (e) {
+                                debugPrint('Error: $e');
+                              }
+                            },
+                            style: ButtonStyle(
+                              backgroundColor:
+                              const MaterialStatePropertyAll(Color(0xFFe4d199)),
+                              fixedSize: const MaterialStatePropertyAll(
+                                  Size.fromWidth(270)),
+                              shape: MaterialStatePropertyAll(
+                                RoundedRectangleBorder(
+                                  side: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ),
+                            child: const Text(
+                              'Sign up',
+                              style: TextStyle(
+                                color: Color(0xFF362d0e),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
                         ],
                       ),
-                      AuthTextFormField(
-                        controller: emailController,
-                        suffixIcon: Icons.email_outlined,
-                        hintText: 'Email Address',
-                      ),
-                      AuthTextFormField(
-                        controller: passwordController,
-                        obscureText: true,
-                        suffixIcon: Icons.password,
-                        hintText: 'Password',
-                      ),
-                      const SizedBox(height: 10),
-                      ElevatedButton(
-                        onPressed: () {
-                          try {
-                            final RegisterRequest registerRequest =
-                                RegisterRequest(
-                              firstName: firstNameController.text,
-                              lastName: lastNameController.text,
-                              email: emailController.text,
-                              password: passwordController.text,
-                            );
-                            registerRepository
-                                .register(registerRequest)
-                                .whenComplete(() {
-                              debugPrint('Register complete');
-                              Navigator.of(context).pushNamed(Routes.homePage);
-                            });
-                          } catch (e) {
-                            debugPrint('Error: $e');
-                          }
-                        },
-                        style: ButtonStyle(
-                          backgroundColor:
-                              const MaterialStatePropertyAll(Color(0xFFe4d199)),
-                          fixedSize: const MaterialStatePropertyAll(
-                              Size.fromWidth(270)),
-                          shape: MaterialStatePropertyAll(
-                            RoundedRectangleBorder(
-                              side: BorderSide.none,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                        child: const Text(
-                          'Sign up',
-                          style: TextStyle(
-                            color: Color(0xFF362d0e),
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      )
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-        )
-      ],
-    ));
+            )
+          ],
+        ));
   }
 }

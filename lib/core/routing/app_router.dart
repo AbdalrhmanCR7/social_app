@@ -3,6 +3,7 @@ import 'package:social_app/features/register/presentation/pages/register_page.da
 
 import '../../features/home/presentation/pages/home_screen.dart';
 import '../../features/login/presentation/pages/login_page.dart';
+import '../../features/settings/presentation/pages/settings_screen.dart';
 import 'routes.dart';
 
 class AppRouter {
@@ -18,6 +19,8 @@ class AppRouter {
       case Routes.homePage:
         return MaterialPageRoute(builder: (_) => const HomePage());
 
+      case Routes.settingsScreen:
+        return MaterialPageRoute(builder: (_) => const SettingsScreen ());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

@@ -33,106 +33,61 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Scaffold(
-      body:
-      PageView(
+    return Scaffold(
+      body: PageView(
         controller: _pageController,
         children: screens,
       ),
       bottomNavigationBar: Container(
         color: Colors.grey,
         height: 60,
-           child: Row(
-            children: [
-              Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: List.generate(screens.length, (index) {
+            return Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  _pageController.animateToPage(
+                    index,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeIn,
+                  );
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        _pageController.animateToPage(
-                          0,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeIn,
-                        );
-                      },
-                      icon: const Icon(Icons.home_outlined),
+                    Icon(
+                      index == 0
+                          ? Icons.home_outlined
+                          : index == 1
+                          ? Icons.chat
+                          : index == 2
+                          ? Icons.post_add
+                          : index == 3
+                          ? Icons.person
+                          : Icons.settings,
+                      color: currentIndex == index
+                          ? Colors.blue
+                          : Colors.black,
                     ),
-                    Text(titles[0]),
+                    Text(
+                      titles[index],
+                      style: TextStyle(
+                        color: currentIndex == index
+                            ? Colors.blue
+                            : Colors.black,
+                      ),
+                    ),
                   ],
                 ),
               ),
-              Expanded(
-                child: Column(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        _pageController.animateToPage(
-                          1,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeIn,
-                        );
-                      },
-                      icon: const Icon(Icons.post_add),
-                    ),
-                    Text(titles[1]),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        _pageController.animateToPage(
-                          2,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeIn,
-                        );
-                      },
-                      icon: const Icon(Icons.person),
-                    ),
-                    Text(titles[2]),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        _pageController.animateToPage(
-                          3,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeIn,
-                        );
-                      },
-                      icon: const Icon(Icons.chat),
-                    ),
-                    Text(titles[3]),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        _pageController.animateToPage(
-                          4,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeIn,
-                        );
-                      },
-                      icon: const Icon(Icons.settings),
-                    ),
-                    Text(titles[4]),
-                  ],
-                ),
-              ),
-            ],
-           ),
-         ),
+            );
+          }),
+        ),
+      ),
     );
   }
 }
