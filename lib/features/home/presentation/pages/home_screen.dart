@@ -37,6 +37,11 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         controller: _pageController,
         children: screens,
+        onPageChanged: (pageIndex) {
+          setState(() {
+            currentIndex = pageIndex;
+          });
+        },
       ),
       bottomNavigationBar: Container(
         color: Colors.grey,
@@ -52,9 +57,6 @@ class _HomePageState extends State<HomePage> {
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeIn,
                   );
-                  setState(() {
-                    currentIndex = index;
-                  });
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -63,22 +65,19 @@ class _HomePageState extends State<HomePage> {
                       index == 0
                           ? Icons.home_outlined
                           : index == 1
-                          ? Icons.chat
-                          : index == 2
-                          ? Icons.post_add
-                          : index == 3
-                          ? Icons.person
-                          : Icons.settings,
-                      color: currentIndex == index
-                          ? Colors.blue
-                          : Colors.black,
+                              ? Icons.chat
+                              : index == 2
+                                  ? Icons.post_add
+                                  : index == 3
+                                      ? Icons.person
+                                      : Icons.settings,
+                      color: currentIndex == index ? Colors.blue : Colors.black,
                     ),
                     Text(
                       titles[index],
                       style: TextStyle(
-                        color: currentIndex == index
-                            ? Colors.blue
-                            : Colors.black,
+                        color:
+                            currentIndex == index ? Colors.blue : Colors.black,
                       ),
                     ),
                   ],
